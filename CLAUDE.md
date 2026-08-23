@@ -60,8 +60,8 @@ FleetWidget      (AppKit shell)
 - **The data source is an undocumented internal contract.** `~/.claude/sessions/<pid>.json`
   is written by Claude Code itself; field names and the status vocabulary may change in
   any release. Observed against **Claude Code 2.1.240**. The observed behaviour
-  (status vocabulary, `waitingFor` values, precedence) is recorded in
-  `openspec/changes/add-fleet-widget/design.md`.
+  (status vocabulary, `waitingFor` values, precedence) is summarised in `README.md`
+  under "How it works".
 - The widget is **read-only**. It never writes to `~/.claude`, hooks, or `statusLine`,
   so it cannot break a Claude Code install.
 - Token / rate-limit gauges are deliberately **not** in v1: utilization never touches
@@ -69,5 +69,5 @@ FleetWidget      (AppKit shell)
   the user's `statusLine` setting.
 - **No binary art in the repo.** Sprites, the header mark and the app icon all come
   from the same string-literal bitmaps, so the icon cannot drift from the widget.
-- Shared project settings: `.claude/settings.json`
-- Personal overrides (gitignored): `CLAUDE.local.md`, `.claude/settings.local.json`
+- Local-only, untracked: `.claude/` (settings, skills, commands), `openspec/`,
+  `CLAUDE.local.md`. They are working tooling, not part of the shipped project.

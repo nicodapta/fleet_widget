@@ -70,11 +70,21 @@ install. It makes no network requests of any kind. The only things it writes are
 `UserDefaults` (mute state and panel position).
 
 The registry format is an **undocumented internal contract**. Field names and the status
-vocabulary can change in any Claude Code release; the behaviour this build relies on was
-observed against 2.1.240 and is written down in
-[`openspec/changes/add-fleet-widget/design.md`](openspec/changes/add-fleet-widget/design.md).
-Unrecognised statuses degrade to an `unknown` row rather than crashing, but expect to need
-an update when the format moves.
+vocabulary can change in any Claude Code release. Everything this build relies on was
+observed against 2.1.240:
+
+- The status vocabulary is small and closed: `busy`, `shell`, `idle`, `waiting`.
+- `waiting` outranks `busy` — a session both working and blocked reports `waiting`.
+- `shell` is a refinement of `idle`, not of `busy`: the turn is over while a background
+  command runs. It does not need you, and is tiered down accordingly.
+- `waitingFor` carries a short reason — `sandbox request`, `input needed`, `worker
+  request`, `dialog open`, or a string supplied by a permission dialog.
+- Records are rewritten on every state change, so no transition is coalesced at the
+  source. Debouncing is the widget's job.
+
+Only `pid`, `sessionId` and `cwd` are treated as required; every other field is optional
+and its absence degrades the row rather than rejecting it. An unrecognised status renders
+as `unknown` rather than crashing. Still, expect to need an update when the format moves.
 
 ## Development
 
