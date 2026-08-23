@@ -8,7 +8,8 @@ Claude Code session, and makes a noise when one of them needs you.
 Requires macOS 12+ and a Swift toolchain (Xcode or the Command Line Tools).
 
 ```bash
-git clone <this repo> && cd claude_widget
+git clone https://github.com/nicodapta/fleet_widget.git
+cd fleet_widget
 make install                        # build and copy FleetWidget.app to /Applications
 open /Applications/FleetWidget.app
 ```
