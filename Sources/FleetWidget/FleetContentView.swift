@@ -123,8 +123,8 @@ final class FleetContentView: NSView {
             at: NSPoint(x: 11 + markSide + 7, y: 9),
             withAttributes: [.font: titleFont, .foregroundColor: titleColor])
 
-        // Controls, right-aligned. This is an accessory app with no Dock icon or
-        // menu bar item, so quit and mute must live on the panel itself.
+        // Controls, right-aligned. Mute has no home outside the panel, and quit
+        // belongs beside it: reaching for the menu bar means leaving the widget.
         let controlFont = NSFont.monospacedSystemFont(ofSize: 8, weight: .semibold)
         let dim = NSColor(srgbRed: 0.50, green: 0.55, blue: 0.62, alpha: 1.0)
 

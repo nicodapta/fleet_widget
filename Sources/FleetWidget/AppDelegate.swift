@@ -20,6 +20,16 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         startRedrawTimer()
     }
 
+    /// Clicking the Dock icon has nothing to reveal — the panel is always on
+    /// screen. Recover the case that does need it: a panel dragged onto a display
+    /// that has since been disconnected, which leaves it somewhere unreachable.
+    func applicationShouldHandleReopen(
+        _ sender: NSApplication, hasVisibleWindows flag: Bool
+    ) -> Bool {
+        recoverPanelIfOffscreen()
+        return true
+    }
+
     func applicationWillTerminate(_ notification: Notification) {
         monitor.stop()
         redrawTimer?.invalidate()
@@ -73,6 +83,21 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         return NSPoint(
             x: visible.maxX - size.width - AppDelegate.screenMargin,
             y: visible.maxY - size.height - AppDelegate.screenMargin)
+    }
+
+    /// Snap the panel back to the default corner when it is no longer on any
+    /// connected display. A panel that is merely somewhere unexpected is left
+    /// alone — the user put it there.
+    private func recoverPanelIfOffscreen() {
+        let frame = panel.frame
+        let onScreen = NSScreen.screens.contains { $0.visibleFrame.intersects(frame) }
+        guard !onScreen else {
+            panel.orderFrontRegardless()
+            return
+        }
+        panel.setFrameOrigin(defaultCorner(for: frame.size))
+        panel.orderFrontRegardless()
+        preferences.panelOrigin = panel.frame.origin
     }
 
     @objc private func panelDidMove() {

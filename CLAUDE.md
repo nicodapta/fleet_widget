@@ -42,6 +42,7 @@ FleetWidgetCore  (pure logic, unit tested)
 
 FleetWidget      (AppKit shell)
   FleetPanel        non-activating always-on-top NSPanel
+  MainMenu          App menu, so a regular app has About/Hide/Quit and ⌘Q
   FleetContentView  all drawing, hit regions, prominence tiering
   SessionAppearance presentation state (busy/blocked/done/idle/shell/unknown)
   Sprites           string-literal pixel bitmaps, no asset pipeline

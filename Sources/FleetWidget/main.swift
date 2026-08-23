@@ -23,9 +23,11 @@ if CommandLine.arguments.contains("--self-test-interaction") {
 }
 
 let application = NSApplication.shared
-// Accessory: no Dock icon, no app-switcher entry. Set in code as well as via
-// LSUIElement so `swift run` behaves the same as the bundled .app.
-application.setActivationPolicy(.accessory)
+// Regular: the app owns a Dock icon and an app-switcher entry. Set in code as
+// well as by the absence of LSUIElement, so `swift run` behaves the same as the
+// bundled .app — the plist governs launch, this governs a bundle-less run.
+application.setActivationPolicy(.regular)
+MainMenu.install(into: application)
 
 let delegate = AppDelegate()
 application.delegate = delegate

@@ -18,8 +18,8 @@ The widget appears top-right and starts tracking immediately. There is nothing t
 configure and nothing to install into Claude Code — it finds your sessions on its own.
 
 Drag the panel anywhere, `SND`/`MUTE` toggles the alert sound, `X` quits. Position and
-mute state persist across relaunches. It is an accessory app, so there is no Dock icon
-or menu bar item to quit from — use `X` on the panel.
+mute state persist across relaunches. ⌘Q works too, and clicking the Dock icon snaps the
+panel back to the top-right corner if it was left on a display you have disconnected.
 
 To try it without installing:
 
